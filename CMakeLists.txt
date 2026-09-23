@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.23.1)
 
-project(MySynth VERSION 0.0.1)
+project(TransientShaper VERSION 0.0.1)
 
 # General setup
-set(PROJECT_NAME "MySynth")
+set(PROJECT_NAME "TransientShaper")
 set(CURRENT_VERSION "0.0.1")
 set(PRODUCT_NAME "Transient Shaper")
 set(COMPANY_NAME "Archie DSP")
@@ -101,8 +101,8 @@ if(TARGET juce_vst3_helper)
     )
 endif()
 
-if(TARGET MySynth_VST3)
-    target_include_directories(MySynth_VST3 PRIVATE
+if(TARGET TransientShaper_VST3)
+    target_include_directories(TransientShaper_VST3 PRIVATE
         ${CMAKE_CURRENT_SOURCE_DIR}/modules/JUCE/modules/juce_audio_processors_headless/format_types/VST3_SDK
     )
 endif()

@@ -16,7 +16,7 @@ A real-time audio transient shaper built with C++ and JUCE. It is available as a
 
 The ready-to-run standalone application is included at [`release/Transient Shaper.exe`](release/Transient%20Shaper.exe). It does not need a DAW. Run it, select an audio input and output device, and adjust the controls while audio is playing.
 
-The VST3 is built from the same source. Open the project in Visual Studio/CMake and build the `MySynth_VST3` target; CMake installs it in the current user's VST3 folder.
+The VST3 is built from the same source. Open the project in Visual Studio/CMake and build the `TransientShaper_VST3` target; CMake installs it in the current user's VST3 folder.
 
 ## Controls
 
@@ -41,14 +41,14 @@ From the repository root, run:
 
 ```powershell
 cmake -S . -B build -A x64
-cmake --build build --config Release --target MySynth_Standalone MySynth_VST3
+cmake --build build --config Release --target TransientShaper_Standalone TransientShaper_VST3
 ```
 
 Build outputs are created under:
 
 ```text
-build/MySynth_artefacts/Release/Standalone/Transient Shaper.exe
-build/MySynth_artefacts/Release/VST3/Transient Shaper.vst3
+build/TransientShaper_artefacts/Release/Standalone/Transient Shaper.exe
+build/TransientShaper_artefacts/Release/VST3/Transient Shaper.vst3
 ```
 
 ## Source layout
