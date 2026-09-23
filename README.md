@@ -68,3 +68,10 @@ JUCE is distributed under its own licensing terms; see `modules/JUCE/LICENSE.md`
 Download and run [`release/Transient Shaper VST3 Setup.exe`](release/Transient%20Shaper%20VST3%20Setup.exe). The setup wizard installs the VST3 plug-in only (not the standalone app) to the standard Windows VST3 folder, requests administrator permission, and adds an uninstall entry in Windows Apps. Restart your DAW or rescan plug-ins after installation.
 
 The standalone Windows app is available separately as [`release/Transient Shaper.exe`](release/Transient%20Shaper.exe).
+
+## Submission documents
+
+- [User Guide (PDF)](docs/submission/Transient%20Shaper%20-%20User%20Guide.pdf)
+- [Technical Summary (PDF)](docs/submission/Transient%20Shaper%20-%20Technical%20Summary.pdf)
+- [Testing Report (PDF)](docs/submission/Transient%20Shaper%20-%20Testing%20Report.pdf)
+- [Windows VST3 bundle (ZIP)](release/Transient%20Shaper%20VST3%20Windows.zip)
