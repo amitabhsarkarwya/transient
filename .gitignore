@@ -1,0 +1,30 @@
+# Build folders
+/build/
+
+# CMake
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+
+# Visual Studio
+.vs/
+*.vcxproj.user
+
+# Binaries
+*.exe
+*.dll
+*.lib
+*.exp
+*.ilk
+*.pdb
+
+# Plugin binaries
+*.vst3
+
+# Logs
+*.log
+
+# Keep the distributable standalone app while ignoring other build binaries.
+!release/Transient Shaper.exe
+Source/_write_probe.tmp
