@@ -62,3 +62,9 @@ build/MySynth_artefacts/Release/VST3/Transient Shaper.vst3
 ## Licensing
 
 JUCE is distributed under its own licensing terms; see `modules/JUCE/LICENSE.md`. No separate license has been selected for the Transient Shaper source yet.
+
+## Install the VST3 plug-in
+
+Download and run [`release/Transient Shaper VST3 Setup.exe`](release/Transient%20Shaper%20VST3%20Setup.exe). The setup wizard installs the VST3 plug-in only (not the standalone app) to the standard Windows VST3 folder, requests administrator permission, and adds an uninstall entry in Windows Apps. Restart your DAW or rescan plug-ins after installation.
+
+The standalone Windows app is available separately as [`release/Transient Shaper.exe`](release/Transient%20Shaper.exe).

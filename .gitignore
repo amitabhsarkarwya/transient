@@ -28,3 +28,6 @@ compile_commands.json
 # Keep the distributable standalone app while ignoring other build binaries.
 !release/Transient Shaper.exe
 Source/_write_probe.tmp
+
+# Keep the VST3 setup installer distributable.
+!release/Transient Shaper VST3 Setup.exe
