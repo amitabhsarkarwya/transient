@@ -44,7 +44,7 @@ jobs:
           test -d "$PLUGIN_BUNDLE"
           PLUGIN_BINARY="$PLUGIN_BUNDLE/Contents/MacOS/Transient Shaper"
           test -f "$PLUGIN_BINARY"
-          lipo -verify_arch arm64 x86_64 "$PLUGIN_BINARY"
+          lipo "$PLUGIN_BINARY" -verify_arch arm64 x86_64
 
       - name: Validate with pluginval 1.0.4
         env:
