@@ -1,0 +1,77 @@
+name: macOS VST3 Installer
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/macos-vst3.yml"
+      - "CMakeLists.txt"
+      - "Source/**"
+      - "modules/JUCE"
+      - "scripts/package_macos_vst3.sh"
+
+permissions:
+  contents: read
+
+jobs:
+  build-macos-vst3:
+    name: Build, validate, and package universal VST3
+    runs-on: macos-15
+    timeout-minutes: 60
+
+    steps:
+      - name: Check out source and JUCE submodules
+        uses: actions/checkout@v6
+        with:
+          submodules: recursive
+
+      - name: Configure universal Release build
+        run: >-
+          cmake -S . -B build-macos -G Ninja
+          -DCMAKE_BUILD_TYPE=Release
+          "-DCMAKE_OSX_ARCHITECTURES=arm64;x86_64"
+          -DCMAKE_OSX_DEPLOYMENT_TARGET=11.0
+
+      - name: Build VST3
+        run: cmake --build build-macos --target TransientShaper_VST3 --parallel 3
+
+      - name: Verify universal plugin bundle
+        env:
+          PLUGIN_BUNDLE: build-macos/TransientShaper_artefacts/Release/VST3/Transient Shaper.vst3
+        run: |
+          test -d "$PLUGIN_BUNDLE"
+          PLUGIN_BINARY="$PLUGIN_BUNDLE/Contents/MacOS/Transient Shaper"
+          test -f "$PLUGIN_BINARY"
+          lipo -verify_arch arm64 x86_64 "$PLUGIN_BINARY"
+
+      - name: Validate with pluginval 1.0.4
+        env:
+          PLUGIN_BUNDLE: build-macos/TransientShaper_artefacts/Release/VST3/Transient Shaper.vst3
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/Tracktion/pluginval/releases/download/v1.0.4/pluginval_macOS.zip \
+            --output /tmp/pluginval_macOS.zip
+          mkdir -p /tmp/pluginval
+          ditto -x -k /tmp/pluginval_macOS.zip /tmp/pluginval
+          xattr -dr com.apple.quarantine /tmp/pluginval/pluginval.app 2>/dev/null || true
+          mkdir -p build-macos/pluginval-logs
+          /tmp/pluginval/pluginval.app/Contents/MacOS/pluginval \
+            --validate-in-process \
+            --strictness-level 5 \
+            --output-dir build-macos/pluginval-logs \
+            "$PLUGIN_BUNDLE"
+
+      - name: Create macOS Installer package
+        run: bash scripts/package_macos_vst3.sh build-macos dist 0.0.1
+
+      - name: Upload installer artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Transient-Shaper-VST3-macOS
+          path: |
+            dist/Transient-Shaper-VST3-macOS.pkg
+            dist/Transient-Shaper-VST3-macOS.pkg.sha256
+          if-no-files-found: error
+          retention-days: 90
